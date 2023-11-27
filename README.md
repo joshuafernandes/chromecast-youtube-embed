@@ -1,11 +1,9 @@
-# Youtube Chromecast Speed Hack
-A way to play a youtube video on Chromecast with settable speed
+# Chromecast YouTube Embed with Options
+
+Embed youtube videos into a browser for Chromecast and have full access to all controls
 
 ## [Click Here](https://joshuafernandes.github.io/chromecast-youtube-embed/)
 
-All this does is provide a form and display the video in an iframe. As of March 26th 2017 you can then follow these steps
-
-1. chromecast [the page](https://joshuafernandes.github.io/chromecast-youtube-embed/)
-2. enter a youtube url 
-3. set the playback speed
-4. click the fullscreen icon
+1. Chromecast this page (click the cast button in the Chrome Toolbar)
+2. Copy and paste a youtube URL in the field
+3. Hit play and control speed, subtitles, fullscreen etc
