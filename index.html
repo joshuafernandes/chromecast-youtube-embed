@@ -4,11 +4,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta property="og:title" content="Youtube ChromeCast Embed" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://joshuafernandes.github.io/youtube-chromecast-embed/logo.png" />
-  <meta property="og:description" content="Set the speed of youtube videos on ChromeCast" />
+  <meta property="og:image" content="https://joshuafernandes.github.io/chromecast-youtube-embed/logo.svg" />
+  <meta property="og:description" content="Set the speed of Youtube videos on ChromeCast" />
   <meta property="og:url" content="https://joshuafernandes.github.io/youtube-chromecast-embed/">
 
-  <title>Youtube Chromecast Speed Hack</title>
+  <title>Chromecast Youtube Embed with Controls</title>
   <style>
   * {
     box-sizing: border-box;
@@ -69,7 +69,7 @@
         </li>
       </ol>
     </div>
-    <input type="text" id="url" placeholder="..paste Youtube URL here..." />
+    <input type="text" id="url" placeholder="..paste your Youtube URL here..." />
     <iframe frameborder="0" allowfullscreen></iframe>
   </div>
 </body>
@@ -84,7 +84,6 @@ urlElem.addEventListener('change', (e) => {
   }
 });
 
- // This is to make the bookmarklet work.
  if (window.location.search.substr(1) != "") {
      iframeElem.src = getVideoEmbedUrl(decodeURIComponent(window.location.search.substr(1)));
  }
@@ -93,7 +92,7 @@ function getVideoEmbedUrl(url) {
   url = url.replace('http://', 'https://');
   if (url.indexOf('twitch.tv') > 0) {
     var url2 = ''
-    url2 += 'https://player.twitch.tv/?enableExtensions=true&muted=false&parent=greggman.github.io&player=popout&video='
+    url2 += 'https://player.twitch.tv/?enableExtensions=true&muted=false&parent=joshuafernandes.github.io&player=popout&video='
     url2 +=  url.substr(url.lastIndexOf('/') + 1)
     url = url2
   }
