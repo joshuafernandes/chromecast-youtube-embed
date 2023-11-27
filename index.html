@@ -1,0 +1,139 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta property="og:title" content="Youtube ChromeCast Embed" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://joshuafernandes.github.io/youtube-chromecast-embed/logo.png" />
+  <meta property="og:description" content="Set the speed of youtube videos on ChromeCast" />
+  <meta property="og:url" content="https://joshuafernandes.github.io/youtube-chromecast-embed/">
+
+  <title>Youtube Chromecast Speed Hack</title>
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background-color: #444;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    font-family: sans-serif;
+  }
+  #frame {
+    display: flex;
+    padding: 1em;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+  .ins {
+    flex: 0 0 auto;
+  }
+  input {
+    border: none;
+    flex: 0 0 auto;
+    display: block;
+    width: 100%;
+    height: 2em;
+    font-size: medium;
+    background: #222;
+    color: white;
+    margin-bottom: 1em;
+  }
+  iframe {
+    background: #666;
+    flex: 1 1 auto;
+    display: block;
+  }
+  </style>
+</head>
+<body>
+  <div id="frame">
+    <div class="ins">
+      <h1>Youtube Chromecast Embed</h1>
+      <ol>
+        <li>
+            Cast this page (click the cast button in the Chrome Toolbar)
+        </li>
+        <li>
+            Copy and paste a youtube URL below
+        </li>
+        <li>
+            Play the video, set the playback speed
+        </li>
+        <li>
+            Click the fullscreen icon in the bottom right of the video
+        </li>
+      </ol>
+    </div>
+    <input type="text" id="url" placeholder="..paste Youtube URL here..." />
+    <iframe frameborder="0" allowfullscreen></iframe>
+  </div>
+</body>
+<script>
+const $ = document.querySelector.bind(document);
+const urlElem = $("#url");
+const iframeElem = $("iframe");
+urlElem.addEventListener('change', (e) => {
+  const url = urlElem.value.trim();
+  if (url) {
+    iframeElem.src = getVideoEmbedUrl(url);
+  }
+});
+
+ // This is to make the bookmarklet work.
+ if (window.location.search.substr(1) != "") {
+     iframeElem.src = getVideoEmbedUrl(decodeURIComponent(window.location.search.substr(1)));
+ }
+
+function getVideoEmbedUrl(url) {
+  url = url.replace('http://', 'https://');
+  if (url.indexOf('twitch.tv') > 0) {
+    var url2 = ''
+    url2 += 'https://player.twitch.tv/?enableExtensions=true&muted=false&parent=greggman.github.io&player=popout&video='
+    url2 +=  url.substr(url.lastIndexOf('/') + 1)
+    url = url2
+  }
+  else if (url.indexOf('embed') < 0) {
+    const params = getParams(url);
+    params.autoplay = 1;
+    if (params.v) {
+      url = "https://www.youtube.com/embed/" + encodeURIComponent(params.v);
+    } else if (params.list) {
+      url = "https://www.youtube.com/embed/videoseries";
+    }
+    url += makeSearchUrl(params) + getHash(url);
+  }
+  return url;
+}
+
+function getHash(url) {
+  const a = document.createElement('a');
+  a.href = url;
+  return a.hash;
+}
+
+function makeSearchUrl(params) {
+  return '?' + Object.keys(params).map(key => {
+    return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+  }).join('&');
+}
+
+function getParams(url) {
+  const a = document.createElement('a');
+  a.href = url;
+  const params = {};
+  const search = a.search;
+  if (search) {
+    search.substring(1).split("&").forEach(pair => {
+      const keyValue = pair.split('=').map(decodeURIComponent);
+      params[keyValue[0]] = keyValue[1];
+    });
+  }
+  return params;
+}
+</script>
+</html>
